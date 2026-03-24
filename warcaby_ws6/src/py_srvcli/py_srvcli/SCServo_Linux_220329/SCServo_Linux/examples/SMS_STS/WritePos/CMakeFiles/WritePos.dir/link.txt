@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -O3 -rdynamic CMakeFiles/WritePos.dir/WritePos.cpp.o -o WritePos   -L/home/maciek/Desktop/servo/SCServo_Linux_220329/SCServo_Linux/examples/SMS_STS/WritePos/../../..  -Wl,-rpath,/home/maciek/Desktop/servo/SCServo_Linux_220329/SCServo_Linux/examples/SMS_STS/WritePos/../../.. -Wl,-Bstatic -lSCServo -Wl,-Bdynamic 

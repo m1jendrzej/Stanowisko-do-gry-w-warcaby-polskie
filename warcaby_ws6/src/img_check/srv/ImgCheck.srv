@@ -1,0 +1,8 @@
+# Żądanie
+# brak pól wejściowych
+
+---
+# Odpowiedź
+int32[100] matrix
+
+

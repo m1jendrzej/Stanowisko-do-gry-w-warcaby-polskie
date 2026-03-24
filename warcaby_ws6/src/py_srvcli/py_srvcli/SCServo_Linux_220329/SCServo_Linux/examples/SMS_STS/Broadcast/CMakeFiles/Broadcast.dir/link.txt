@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -O3 -rdynamic CMakeFiles/Broadcast.dir/Broadcast.cpp.o -o Broadcast   -L/home/maciek/Desktop/servo/SCServo_Linux_220329/SCServo_Linux/examples/SMS_STS/Broadcast/../../..  -Wl,-rpath,/home/maciek/Desktop/servo/SCServo_Linux_220329/SCServo_Linux/examples/SMS_STS/Broadcast/../../.. -Wl,-Bstatic -lSCServo -Wl,-Bdynamic 

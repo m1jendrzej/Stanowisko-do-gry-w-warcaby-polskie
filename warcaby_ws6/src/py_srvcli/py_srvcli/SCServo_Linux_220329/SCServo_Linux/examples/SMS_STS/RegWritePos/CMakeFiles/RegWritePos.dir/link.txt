@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -O3 -rdynamic CMakeFiles/RegWritePos.dir/RegWritePos.cpp.o -o RegWritePos   -L/home/maciek/Desktop/servo/SCServo_Linux_220329/SCServo_Linux/examples/SMS_STS/RegWritePos/../../..  -Wl,-rpath,/home/maciek/Desktop/servo/SCServo_Linux_220329/SCServo_Linux/examples/SMS_STS/RegWritePos/../../.. -Wl,-Bstatic -lSCServo -Wl,-Bdynamic 

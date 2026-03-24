@@ -1,0 +1,140 @@
+﻿STEP to UG
+! INFO-     NX STEP AP214 - V2007
+! INFO-      
+! INFO-     Start of Translation: 12-SEP-2025  10:29:10 AM
+! INFO-      
+! STATUS-   Converting Part: D:\studia\praca inżynierska\modele 3D\pcb_2.step
+! SUMMARY-   
+! SUMMARY-    STEP Header Information
+! SUMMARY-   
+! SUMMARY-  Description      KiCad electronic assembly
+! SUMMARY-  Imp_Level        2;1
+! SUMMARY-  File_Name        pcb_2.step
+! SUMMARY-  Date             2025-09-12T10:26:26
+! SUMMARY-  Author           Pcbnew
+! SUMMARY-  Organization     Kicad
+! SUMMARY-  Pre_Version      Open CASCADE STEP processor 7.8
+! SUMMARY-  Orig_System      KiCad to STEP converter
+! SUMMARY-  Authorization    Unknown
+! SUMMARY-  Schema_ID        automotive_design
+! SUMMARY-   
+! SUMMARY-    Summary of STEP Entities
+! SUMMARY-   
+! SUMMARY-  Entity Type                                                   Count
+! SUMMARY-  -----------                                                   ------
+! SUMMARY-  advanced_brep_shape_representation .........................:      5
+! SUMMARY-  advanced_face ..............................................:    396
+! SUMMARY-  application_context ........................................:      1
+! SUMMARY-  axis2_placement_3d .........................................:    585
+! SUMMARY-  cartesian_point ............................................:   2134
+! SUMMARY-  circle .....................................................:    175
+! SUMMARY-  closed_shell ...............................................:      5
+! SUMMARY-  context_dependent_shape_representation .....................:     13
+! SUMMARY-  cylindrical_surface ........................................:     88
+! SUMMARY-  direction ..................................................:   2039
+! SUMMARY-  edge_curve .................................................:   1044
+! SUMMARY-  edge_loop ..................................................:    464
+! SUMMARY-  face_bound .................................................:    464
+! SUMMARY-  geometric_representation_context_and_global_uncertainty_a ..:      6
+! SUMMARY-  item_defined_transformation ................................:     13
+! SUMMARY-  length_unit_and_si_unit ....................................:      6
+! SUMMARY-  line .......................................................:    869
+! SUMMARY-  manifold_solid_brep ........................................:      5
+! SUMMARY-  next_assembly_usage_occurrence .............................:     13
+! SUMMARY-  oriented_edge ..............................................:   2088
+! SUMMARY-  plane ......................................................:    306
+! SUMMARY-  plane_angle_unit_and_si_unit ...............................:      6
+! SUMMARY-  product ....................................................:      6
+! SUMMARY-  product_context ............................................:      6
+! SUMMARY-  product_definition .........................................:      6
+! SUMMARY-  product_definition_context .................................:      6
+! SUMMARY-  product_definition_formation ...............................:      6
+! SUMMARY-  product_definition_shape ...................................:     19
+! SUMMARY-  product_related_product_category ...........................:      6
+! SUMMARY-  representation_relationship_with_transformation_and_shape ..:     13
+! SUMMARY-  shape_representation .......................................:      1
+! SUMMARY-  si_unit_and_solid_angle_unit ...............................:      6
+! SUMMARY-  spherical_surface ..........................................:      1
+! SUMMARY-  toroidal_surface ...........................................:      1
+! SUMMARY-  uncertainty_measure_with_unit ..............................:      6
+! SUMMARY-  vector .....................................................:    869
+! SUMMARY-  vertex_point ...............................................:    680
+! SUMMARY-                                                               -------
+! SUMMARY-  Total                                                          12357
+! STATUS-    
+! STATUS-   Converting to Output Form (Phase 2 of 3): 12-SEP-2025 10:29:11 AM
+! STATUS-    
+! STATUS-    
+! STATUS-   Generating UG geometry and placing them in parts
+! STATUS-    
+! STATUS-   Creating the UG part (Phase 3 of 3): 12-SEP-2025  10:29:12 AM
+! INFO-     Filing Part ..: D:\studia\praca inżynierska\modele 3D\pcb_1_PCB11306
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Part Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Solid .......................:     1
+! SUMMARY-                                 -----
+! SUMMARY-  Total                              1
+! STATUS-   Creating the UG part (Phase 3 of 3): 12-SEP-2025  10:29:12 AM
+! INFO-     Filing Part ..: D:\studia\praca inżynierska\modele 3D\PinSocket_1x07_P2.54mm_Horizontal4596
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Part Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Solid .......................:     1
+! SUMMARY-                                 -----
+! SUMMARY-  Total                              1
+! STATUS-   Creating the UG part (Phase 3 of 3): 12-SEP-2025  10:29:12 AM
+! INFO-     Filing Part ..: D:\studia\praca inżynierska\modele 3D\SW_PUSH_6mm_H9.5mm1348
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Part Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Solid .......................:     1
+! SUMMARY-                                 -----
+! SUMMARY-  Total                              1
+! STATUS-   Creating the UG part (Phase 3 of 3): 12-SEP-2025  10:29:13 AM
+! INFO-     Filing Part ..: D:\studia\praca inżynierska\modele 3D\LED_D5.0mm889
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Part Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Solid .......................:     1
+! SUMMARY-                                 -----
+! SUMMARY-  Total                              1
+! STATUS-   Creating the UG part (Phase 3 of 3): 12-SEP-2025  10:29:13 AM
+! INFO-     Filing Part ..: D:\studia\praca inżynierska\modele 3D\R_1206_3216Metric80
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Part Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Solid .......................:     1
+! SUMMARY-                                 -----
+! SUMMARY-  Total                              1
+! STATUS-   Creating the UG part (Phase 3 of 3): 12-SEP-2025  10:29:13 AM
+! INFO-     Filing Part ..: D:\studia\praca inżynierska\modele 3D\pcb_2_step.prt
+! SUMMARY-   
+! SUMMARY-  Summary of Unigraphics Part Entities
+! SUMMARY-   
+! SUMMARY-  Entities Processed             Count
+! SUMMARY-  ------------------             -----
+! SUMMARY-  Component ...................:    13
+! SUMMARY-                                 -----
+! SUMMARY-  Total                             13
+! INFO-      
+! INFO-     Total number of solids input for this translation       :         5
+! INFO-      
+! INFO-     Number of solids created without body validation faults :         5
+! INFO-      
+! INFO-     Number of solids created with body validation fault(s)  :         0
+! INFO-      
+! INFO-     Number of solids ending up as sheet bodies              :         0
+! INFO-      
+! INFO-     End of Translation: 12-SEP-2025  10:29:13 AM
+! INFO-      
