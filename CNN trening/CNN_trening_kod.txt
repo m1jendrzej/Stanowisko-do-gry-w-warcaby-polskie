@@ -1,0 +1,222 @@
+
+from google.colab import drive
+drive.mount('/content/drive')
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+import pathlib
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.metrics import ConfusionMatrixDisplay
+import os
+from datetime import datetime
+
+print("TensorFlow version:", tf.__version__)
+
+
+#Parametry
+batch_size = 32
+img_height = 96
+img_width = 96
+epochs = 25
+
+# Ścieżka do folderu z trzema klasami w podfolderach
+data_dir = pathlib.Path("/content/drive/MyDrive/New Folder/zdjecia posegregowane")
+# główny katalog na wszystkie treningi
+base_model_dir = pathlib.Path("/content/drive/MyDrive/New Folder/model_warcaby")
+os.makedirs(base_model_dir, exist_ok=True)
+# Podkatalog dla treningu (z datą i godziną)
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+run_dir = base_model_dir / f"run_{timestamp}"
+os.makedirs(run_dir, exist_ok=True)
+
+print("Data dir:", data_dir)
+print("Base model dir:", base_model_dir)
+print("This run dir:", run_dir)
+
+print("\nZawartość katalogu z danymi:")
+!ls "/content/drive/MyDrive/New Folder/zdjecia posegregowane"
+
+# =============================
+# Wczytanie danych z folderów
+# =============================
+train_ds = tf.keras.utils.image_dataset_from_directory(
+    data_dir,
+    validation_split=0.2,
+    subset="training",
+    seed=123,
+    image_size=(img_height, img_width),
+    batch_size=batch_size
+)
+val_ds = tf.keras.utils.image_dataset_from_directory(
+    data_dir,
+    validation_split=0.2,
+    subset="validation",
+    seed=123,
+    image_size=(img_height, img_width),
+    batch_size=batch_size
+)
+
+class_names = train_ds.class_names
+print("\nKlasy wykryte przez Keras:", class_names)
+
+# Usprawnienie pipeline'u
+AUTOTUNE = tf.data.AUTOTUNE
+train_ds = train_ds.cache().shuffle(1000).prefetch(AUTOTUNE)
+val_ds   = val_ds.cache().prefetch(AUTOTUNE)
+
+# ============================
+# Augmentacja danych
+# ============================
+data_augmentation = keras.Sequential(
+    [
+        layers.RandomFlip("horizontal"),
+        layers.RandomRotation(0.05),
+        layers.RandomZoom(0.1),
+        layers.RandomTranslation(0.05, 0.05),
+        layers.RandomContrast(0.05),
+    ],
+    name="data_augmentation"
+)
+
+# ============================
+# Model
+# ============================
+num_classes = len(class_names)
+
+model = keras.Sequential([
+    layers.Input(shape=(img_height, img_width, 3)),
+
+    data_augmentation,
+    layers.Rescaling(1./255),
+
+    layers.Conv2D(32, 3, padding="same", activation="relu"),
+    layers.Conv2D(32, 3, padding="same", activation="relu"),
+    layers.MaxPooling2D(),
+    layers.BatchNormalization(),
+
+    layers.Conv2D(64, 3, padding="same", activation="relu"),
+    layers.Conv2D(64, 3, padding="same", activation="relu"),
+    layers.MaxPooling2D(),
+    layers.BatchNormalization(),
+
+    layers.Conv2D(128, 3, padding="same", activation="relu"),
+    layers.MaxPooling2D(),
+    layers.BatchNormalization(),
+
+    layers.GlobalAveragePooling2D(),
+    layers.Dense(64, activation="relu"),
+    layers.Dropout(0.4),
+    layers.Dense(num_classes, activation="softmax")
+])
+
+model.summary()
+
+# ============================
+# Callbacki i kompilacja
+# ============================
+
+# Early Stop po najlepszej val_accuracy
+early_stopping = keras.callbacks.EarlyStopping(
+    monitor="val_accuracy",
+    patience=5,
+    mode="max",
+    restore_best_weights=True
+)
+#  Learning Rate zmniejsza się gdy val_loss się nie poprawia
+reduce_lr = keras.callbacks.ReduceLROnPlateau(
+    monitor="val_loss",
+    factor=0.5,
+    patience=2,
+    min_lr=1e-6,
+    verbose=1
+)
+
+# Ustalenie optimizer'a
+optimizer = keras.optimizers.Adam(learning_rate=3e-4)
+
+# Kompilacja
+model.compile(
+    optimizer=optimizer,
+    loss=keras.losses.SparseCategoricalCrossentropy(from_logits=False),
+    metrics=["accuracy"]
+)
+
+# Trening
+history = model.fit(
+    train_ds,
+    validation_data=val_ds,
+    epochs=epochs,
+    callbacks=[early_stopping, reduce_lr]
+)
+
+# ============================
+# Wykres strat i accuracy
+# ============================
+plt.figure(figsize=(7,4))
+plt.plot(history.history["loss"], label="train loss")
+plt.plot(history.history["val_loss"], label="val loss")
+plt.xlabel("Epoka")
+plt.ylabel("Strata")
+plt.title("Strata tren./walid.")
+plt.grid(True)
+plt.legend()
+plt.show()
+
+if "accuracy" in history.history:
+    plt.figure(figsize=(7,4))
+    plt.plot(history.history["accuracy"], label="train acc")
+    plt.plot(history.history["val_accuracy"], label="val acc")
+    plt.xlabel("Epoka")
+    plt.ylabel("Accuracy")
+    plt.title("Dokładność tren./walid.")
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+
+# ============================
+# Macierz pomyłek + rozkład klas
+# ============================
+y_true, y_pred = [], []
+for X_batch, y_batch in val_ds:
+    preds = model.predict(X_batch, verbose=0)
+    preds_labels = np.argmax(preds, axis=1)
+    y_true.extend(y_batch.numpy())
+    y_pred.extend(preds_labels)
+
+y_true = np.array(y_true)
+y_pred = np.array(y_pred)
+
+print("\nRozkład klas w walidacji (ground truth):")
+unique, counts = np.unique(y_true, return_counts=True)
+for u, c in zip(unique, counts):
+    print(f"  {class_names[u]}: {c}")
+
+print("\nRozkład przewidywanych klas (predykcje):")
+unique_p, counts_p = np.unique(y_pred, return_counts=True)
+for u, c in zip(unique_p, counts_p):
+    print(f"  {class_names[u]}: {c}")
+
+ConfusionMatrixDisplay.from_predictions(y_true, y_pred, display_labels=class_names)
+plt.title("Macierz pomyłek")
+plt.show()
+
+# ============================
+# Zapis modelu, klas, historii w folderze run_...
+# ============================
+model_path   = run_dir / "warcaby_model.keras"
+classes_path = run_dir / "warcaby_class_names.npy"
+history_path = run_dir / "warcaby_history.npz"
+
+model.save(model_path)
+np.save(classes_path, np.array(class_names))
+np.savez(history_path, **history.history)
+
+print("\n[INFO] Model zapisany jako:", model_path)
+print("[INFO] Nazwy klas zapisane jako:", classes_path)
+print("[INFO] Historia treningu zapisana jako:", history_path)
+
+# Ocena końcowego modelu na walidacji:
+val_loss, val_acc = model.evaluate(val_ds)
+print("\n[INFO] Final val_loss:", val_loss)
+print("[INFO] Final val_accuracy:", val_acc)
